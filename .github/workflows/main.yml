@@ -1,0 +1,35 @@
+name: PJM LMP Daily Updater
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # runs daily at 6 AM UTC (~2 AM EST)
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install certifi
+
+      - name: Run script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: python pjm_daily_update.py
+
+      - name: Commit updated CSV
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add pjm.csv
+          git commit -m "Daily PJM update" || echo "No changes to commit"
+          git push
