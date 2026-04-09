@@ -26,7 +26,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: python pjm_daily_update.py
 
-      # ✅ Commit updated CSV back to repo
       - name: Commit updated CSV
         run: |
           git config --global user.name "github-actions"
