@@ -24,7 +24,7 @@ jobs:
       - name: Run script
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: python your_script_name.py
+        run: python pjm_daily_update.py
 
       # ✅ Commit updated CSV back to repo
       - name: Commit updated CSV
