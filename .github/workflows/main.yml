@@ -26,6 +26,8 @@ jobs:
         run: pip install certifi
 
       - name: Run script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         run: python pjm_daily_update.py
 
       - name: Commit updated CSV
