@@ -4,11 +4,14 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # opt into Node 24 now
+
 jobs:
   run-script:
     runs-on: ubuntu-latest
     permissions:
-      contents: write        # ← required for pushing to the repo
+      contents: write
 
     steps:
       - name: Checkout repo
